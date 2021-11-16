@@ -54,11 +54,11 @@
 ;; (setq auth-sources '("~/.authinfo.gpg") auth-source-cache-expiry nil)
 
 
-;; (load! "conf/elfeed.el")
+(load! "conf/elfeed.el")
 (load! "conf/general.el")
 (load! "conf/globalKeys.el")
 (load! "conf/haskell.el")
 (load! "conf/org.el")
 (load! "conf/purescript.el")
 (load! "conf/dumb-jump.el")
-;; (load! "conf/lsp.el")
+(load! "conf/lsp.el")

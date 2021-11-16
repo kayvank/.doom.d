@@ -6,9 +6,6 @@
 (use-package! lsp-ui
   :commands
   (lsp-ui-mode)
-  :custom
-  (lsp-ui-doc--display 2 )
-  ;;(lsp-ui-peek-jump-backward) (lsp-ui-peek-jump-forward)
   )
 
 ;; if you are helm user
@@ -16,10 +13,6 @@
 ;; if you are ivy user
 ;; (use-package! lsp-ivy :commands (lsp-ivy-workspace-symbol) )
 (use-package! lsp-treemacs :commands (lsp-treemacs-errors-list) )
-
-;; optionally if you want to use debugger
-(use-package dap-mode)
-(use-package dap-LANGUAGE) to load the dap adapter for your language
 
 ;; optional if you want which-key integration
 (use-package! which-key
@@ -33,21 +26,19 @@
          (lsp-mode . lsp-diagnostics-modeline-mode))
   :bind ("C-c C-c" . 'lsp-execute-code-action)
   :custom
-  (lsp-diagnostics-modeline-scope :project)
-  (lsp-file-watch-threshold 5000)
-  (lsp-response-timeout 1)
-  (lsp-enable-file-watchers nil))
+  (setq
+   (lsp-diagnostics-modeline-scope :project)
+   (lsp-file-watch-threshold 5000)
+   (lsp-response-timeout 1)
+   (lsp-enable-file-watchers nil)
+
+   )
+  )
+
 
 (use-package! lsp-ui
-  :disabled
-  :custom
-  (lsp-ui-doc-mode nil)
-  (lsp-ui-doc-delay 0.75)
-  (lsp-ui-doc-max-height 200)
-  (lsp-ui-peek-always-show nil)
-  (lsp-ui-doc-position 'at-point)
-  (lsp-ui-sideline-show-hover nil)
-  :after lsp-mode)
+  :init
+)
 
 (use-package! lsp-ivy
   :after (ivy lsp-mode))
@@ -57,6 +48,15 @@
   :custom (company-lsp-enable-snippet t)
   :after (company lsp-mode))
 
+(setq
+ lsp-lens-enable t
+ lsp-ui-doc-position 'top
+ lsp-ui-doc-mode t
+ lsp-ui-peek-enable t
+ lsp-ui-doc-delay 0.9
+ lsp-ui-sideline-enable t
+ lsp-headerline-breadcrumb-enable t
+ lsp-completion-show-kind t
+ lsp-ui-doc-alignment 'window
 
-(setq lsp-lens-enable t)
-(evil-define-key 'normal lsp-mode-map (kbd "\\") lsp-command-map)
+ )

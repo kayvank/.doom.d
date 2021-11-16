@@ -48,6 +48,7 @@
                                         ;(unpin! pinned-package another-pinned-package)
 ;; ...Or *all* packages (NOT RECOMMENDED; will likely break things)
                                         ;(unpin! t)
+(package! dhall-mode)
 (package! nix-haskell-mode)
 (package! which-key)
 (package! dumb-jump)
@@ -64,7 +65,7 @@
 (package! iedit)
 (package! evil-multiedit)
 (package! golden-ratio)
-;; (package! hlint-refactor)
+(package! hlint-refactor)
 ;; (package! flymake-hlint)
 ;;(package! default-text-scale)
 ;; TODO not sure if this will conflict with company
