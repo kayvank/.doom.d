@@ -52,7 +52,9 @@
 (package! nix-haskell-mode)
 (package! which-key)
 (package! dumb-jump)
+(package! elfeed)
 (package! elfeed-org)
+(package! elfeed-goodies)
 (package! ormolu)
 (package! highlight-symbol)
 (package! direnv)
@@ -66,6 +68,15 @@
 (package! evil-multiedit)
 (package! golden-ratio)
 (package! hlint-refactor)
+(package! pdf-tools)
+(package! erc-hl-nicks)
+(package! circe)
+(package! erc-hl-nicks)
+(package! yasnippet)
+(package! yasnippet-snippets)
+;; (package! erc-image)
+
+;
 ;; (package! flymake-hlint)
 ;;(package! default-text-scale)
 ;; TODO not sure if this will conflict with company

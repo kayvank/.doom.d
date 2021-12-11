@@ -1,4 +1,8 @@
-;;; ../dev/workspaces/workspace-emacs/kayvan/doom.d/general.el -*- lexical-binding: t; -*-
+;; set up gpg and authinfo
+;;
+(setq auth-sources '("~/.authinfo.gpg") auth-source-cache-expiry nil)
+(setq epg-gpg-program "gpg2")
+
 (setq display-line-numbers-type 'relative)
 (setq large-file-warning-threshold 100000000)
 
@@ -185,52 +189,3 @@
 (after! smart-tab
   (global-smart-tab-mode t))
 
-;; default to opening a project in dired
-(setq counsel-projectile-switch-project-action
-      '(4
-        ("o" counsel-projectile-switch-project-action "jump to a project buffer or file")
-        ("f" counsel-projectile-switch-project-action-find-file "jump to a project file")
-        ("d" counsel-projectile-switch-project-action-find-dir "jump to a project directory")
-        ("D" counsel-projectile-switch-project-action-dired "open project in dired")
-        ("b" counsel-projectile-switch-project-action-switch-to-buffer "jump to a project buffer")
-        ("m" counsel-projectile-switch-project-action-find-file-manually "find file manually from project root")
-        ("S" counsel-projectile-switch-project-action-save-all-buffers "save all project buffers")
-        ("k" counsel-projectile-switch-project-action-kill-buffers "kill all project buffers")
-        ("K" counsel-projectile-switch-project-action-remove-known-project "remove project from known projects")
-        ("c" counsel-projectile-switch-project-action-compile "run project compilation command")
-        ("C" counsel-projectile-switch-project-action-configure "run project configure command")
-        ("E" counsel-projectile-switch-project-action-edit-dir-locals "edit project dir-locals")
-        ("v" counsel-projectile-switch-project-action-vc "open project in vc-dir / magit / monky")
-        ("sg" counsel-projectile-switch-project-action-grep "search project with grep")
-        ("si" counsel-projectile-switch-project-action-git-grep "search project with git grep")
-        ("ss" counsel-projectile-switch-project-action-ag "search project with ag")
-        ("sr" counsel-projectile-switch-project-action-rg "search project with rg")
-        ("xs" counsel-projectile-switch-project-action-run-shell "invoke shell from project root")
-        ("xe" counsel-projectile-switch-project-action-run-eshell "invoke eshell from project root")
-        ("xt" counsel-projectile-switch-project-action-run-term "invoke term from project root")
-        ("xv" counsel-projectile-switch-project-action-run-vterm "invoke vterm from project root")
-        ("Oc" counsel-projectile-switch-project-action-org-capture "capture into project")
-        ("Oa" counsel-projectile-switch-project-action-org-agenda "open project agenda")))
-
-
-(setq xterm-set-window-title t)
-(defadvice! fix-xterm-set-window-title (&optional terminal)
-  :before-while #'xterm-set-window-title
-  (not (display-graphic-p terminal)))
-
-(add-hook 'after-init-hook 'global-company-mode)
-
-(setq auth-sources '("~/.authinfo.gpg")
-      auth-source-cache-expiry nil) ; default is 7200 (2h)
-(setq erc-autojoin-channels-alist
-      '(("irc.libera.chat" "#emacs" "#haskell" "#purescript" )))
-(setq erc-format-query-as-channel-p t
-      erc-track-priority-faces-only 'all
-      erc-track-faces-priority-list '(erc-error-face
-                                      erc-current-nick-face
-                                      erc-keyword-face
-                                      erc-nick-msg-face
-                                      erc-direct-msg-face
-                                      erc-dangerous-host-face
-                                      erc-notice-face
-                                      erc-prompt-face))

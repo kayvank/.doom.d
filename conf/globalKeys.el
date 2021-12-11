@@ -1,5 +1,7 @@
 ;;; ../dev/workspaces/workspace-emacs/kayvan/doom.d/globalKeys.el -*- lexical-binding: t; -*-
 ;; they are implemented.
+(global-set-key "\C-y" 'yas-insert-snippet)
+
 (global-set-key "\C-s" 'swiper)
 (global-set-key (kbd "C-c C-r") 'ivy-resume)
 (global-set-key (kbd "<f6>") 'ivy-resume)
