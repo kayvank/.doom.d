@@ -31,3 +31,16 @@
  treemacs-project-map t
  treemacs-git-mode t
  treemacs-filewatch-mode t)
+
+(global-set-key (kbd "C-c C-p") 'treemacs-projectile)
+(global-set-key (kbd "C-c C-P") 'treemacs) ;; toggle
+
+(global-unset-key (kbd "M-d"))
+(global-set-key (kbd "M-d") 'evil-multiedit-match-and-next)
+(global-unset-key (kbd "M-D"))
+(global-set-key (kbd "M-D") 'evil-multiedit-match-and-prev)
+(global-unset-key (kbd "M-a"))
+(global-set-key (kbd "M-a") 'evil-multiedit-match-all)
+(global-unset-key (kbd "M-A"))
+(global-set-key (kbd "M-A") 'evil-multiedit-abort)
+(global-whitespace-mode +1)
