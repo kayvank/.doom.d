@@ -49,12 +49,22 @@
 ;; ...Or *all* packages (NOT RECOMMENDED; will likely break things)
 ;(unpin! t)
 
+
+(package! lsp-mode)
+(package! lsp-haskell)
+(package! powerline)
+(package! popwin)
+(package! flycheck-aspell)
+(package! async)
+(package! dired-open)
+(package! dmenu)
 (package! dhall-mode)
+(package! org-bullets)
 (package! nix-haskell-mode)
 (package! which-key)
 (package! dumb-jump)
-(package! elfeed)
 (package! elfeed-org)
+(package! elfeed-goodies)
 (package! ormolu)
 (package! highlight-symbol)
 (package! direnv)
@@ -67,7 +77,6 @@
 (package! iedit)
 (package! evil-multiedit)
 (package! hlint-refactor)
-(package! erc-hl-nicks)
 (package! erc-hl-nicks)
 (package! yasnippet)
 (package! yasnippet-snippets)
@@ -82,4 +91,4 @@
 ;;(package! default-text-scale)
 ;; TODO not sure if this will conflict with company
 ;; drop doom default snippets
-;; (package! doom-snippets)
+(package! doom-snippets)

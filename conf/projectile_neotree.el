@@ -17,3 +17,11 @@
 ;; need another one for python stuff, since this gets re-bound
 (global-set-key (kbd "C-c C-p") 'neotree-project-dir)
 (global-set-key (kbd "C-c C-e") 'projectile-grep)
+
+(setq projectile-mode-line "Projectile")
+(setq remote-file-name-inhibit-cache nil)
+(setq vc-ignore-dir-regexp
+      (format "%s\\|%s"
+                    vc-ignore-dir-regexp
+                    tramp-file-name-regexp))
+(setq tramp-verbose 1)

@@ -45,3 +45,10 @@
 (global-set-key (kbd "C-c h") 'haskell-hoogle-lookup-from-local)
 (global-set-key [f12] 'lsp-goto-type-definition)
 (global-set-key (kbd "S-<f12>") 'lsp-goto-implementation)
+
+(lsp-register-client
+    (make-lsp-client :new-connection (lsp-tramp-connection "~/bin/haskell-language-server-wrapper")
+                     :major-modes '(haskell-mode)
+                     :remote? t
+                     :server-id 'haskell-remote))
+=
