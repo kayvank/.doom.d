@@ -1,6 +1,6 @@
 (setq auth-sources '("~/.authinfo.gpg"))
 
-(use-package erc
+(use-package! erc
   :custom
   (erc-autojoin-channels-alist '(("libera.chat" "#purescript" "#haskell"
                                   )))
