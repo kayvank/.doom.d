@@ -30,10 +30,14 @@
  treemacs-icons-dired-mode t
  treemacs-project-map t
  treemacs-git-mode t
- treemacs-filewatch-mode t)
+ treemacs-filewatch-mode t
+ google-this-mode t
+
+ )
 
 (global-set-key (kbd "C-c C-p") 'treemacs-projectile)
 (global-set-key (kbd "C-c C-P") 'treemacs) ;; toggle
+(global-set-key (kbd "C-x C-g") 'google-this-mode-submap)
 
 (global-unset-key (kbd "M-d"))
 (global-set-key (kbd "M-d") 'evil-multiedit-match-and-next)

@@ -19,17 +19,16 @@
   :bind
   ("C-c C-f" . haskell-mode-stylish-buffer)
   ("C-c C-o" . ormolu-format-buffer)
-:hook ((haskell-mode . lsp)
-       (haskell-literate-mode .lsp)
-       (haskell-mode .  (lambda () (eldoc-mode -1))))
-
-)
+  :hook (
+         (haskell-mode . lsp)
+         (haskell-literate-mode .lsp)
+         (haskell-mode .  (lambda () (eldoc-mode -1)))
+       )
+  )
 (global-set-key (kbd "C-c w") 'haskell-hoogle-lookup-from-website)
 (global-set-key (kbd "C-c h") 'haskell-hoogle-lookup-from-local)
 (global-set-key [f12] 'lsp-goto-type-definition)
 (global-set-key (kbd "S-<f12>") 'lsp-goto-implementation)
-
-;; Hooks so haskell and literate haskell major modes trigger LSP setup
 
 (use-package! lsp-haskell)
 (use-package! tramp)
@@ -40,3 +39,4 @@
                      :activation-fn (lsp-activate-on "haskell")
                      :remote? t
                      :server-id 'haskell-language-server-wrapper))
+

@@ -78,12 +78,15 @@
 (package! evil-multiedit)
 (package! hlint-refactor)
 (package! erc-hl-nicks)
+(package! erc-colorize)
 (package! yasnippet)
 (package! yasnippet-snippets)
 (package! solaire-mode)
 (package! evil-snipe)
 (package! treemacs-magit)
 (package! treemacs-icons-dired)
+(package! google-this)
+(package! w3m)
 
 
 ;
