@@ -1,3 +1,4 @@
+(use-package! haskell-mode)
 (use-package! lsp)
 (use-package! lsp-mode
   :commands (lsp lsp-ui-mode)
@@ -16,19 +17,17 @@
    haskell-hoogle-port-number 8666
    haskell-compile-cabal-build-command "cabal build"
    lsp-log-io t)
+  (add-to-list 'lsp-file-watch-ignored-directories '"[/\\\\]\\dist-newstyle\\'")
+  (add-to-list 'lsp-file-watch-ignored-directories '"[/\\\\]\\dist-newstyle-repl\\'")
   :bind
-  ("C-c C-f" . haskell-mode-stylish-buffer)
-  ("C-c C-o" . ormolu-format-buffer)
   :hook (
          (haskell-mode . lsp)
          (haskell-literate-mode .lsp)
          (haskell-mode .  (lambda () (eldoc-mode -1)))
        )
   )
-(global-set-key (kbd "C-c w") 'haskell-hoogle-lookup-from-website)
-(global-set-key (kbd "C-c h") 'haskell-hoogle-lookup-from-local)
-(global-set-key [f12] 'lsp-goto-type-definition)
-(global-set-key (kbd "S-<f12>") 'lsp-goto-implementation)
+;; (global-set-key (kbd "C-c w") 'haskell-hoogle-lookup-from-website)
+;; (global-set-key (kbd "C-c h") 'haskell-hoogle-lookup-from-local)
 
 (use-package! lsp-haskell)
 (use-package! tramp)
@@ -39,4 +38,11 @@
                      :activation-fn (lsp-activate-on "haskell")
                      :remote? t
                      :server-id 'haskell-language-server-wrapper))
-
+(use-package! haskell-mode
+  :bind(
+        ("C-c w". haskell-hoogle-lookup-from-website)
+        ("C-c h" . haskell-hoogle-lookup-from-local)
+        ("C-c C-f" . haskell-mode-stylish-buffer)
+        ("C-c C-o" . ormolu-format-buffer)
+        )
+  )

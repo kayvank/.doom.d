@@ -52,6 +52,7 @@
 
 (package! lsp-mode)
 (package! lsp-haskell)
+(package! lsp-treemacs)
 (package! powerline)
 (package! popwin)
 (package! flycheck-aspell)
@@ -67,7 +68,7 @@
 (package! elfeed-goodies)
 (package! ormolu)
 (package! highlight-symbol)
-(package! direnv)
+;; (package! direnv)
 (package! ace-jump-mode)
 (package! counsel-tramp)
 (package! doom-snippets :ignore t)
@@ -87,6 +88,8 @@
 (package! treemacs-icons-dired)
 (package! google-this)
 (package! w3m)
+(package! quelpa)
+(package! psc-ide)
 
 
 ;

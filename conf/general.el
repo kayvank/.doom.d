@@ -9,12 +9,8 @@
 
 (global-set-key (kbd "C-x k") 'kill-current-buffer) ;; skip verification
 (global-set-key (kbd "C-x 4") 'split-3-windows-horizontally-evenly)
-;; configure auto formatters
-(setq +format-on-save-enabled-modes
-      '(not haskell-mode))
 
-(after! smart-tab
-  (global-smart-tab-mode t))
+;; (after! smart-tab (global-smart-tab-mode t))
 
 (setq
  browse-url-generic-program "brave"
@@ -22,19 +18,17 @@
 
 ;; treemacs
 
-(use-package! treemacs-projectile)
 (use-package! treemacs-magit)
 (use-package! treemacs-icons-dired )
 
-(setq
- treemacs-icons-dired-mode t
- treemacs-project-map t
- treemacs-git-mode t
- treemacs-filewatch-mode t
- google-this-mode t
-
+(use-package! treemacs-projectile
+  :config (setq treemacs-icons-dired-mode t
+                treemacs-project-map t
+                treemacs-git-mode t
+                treemacs-filewatch-mode t
+                google-this-mode t)
  )
-
+(setq confirm-kill-emacs nil)
 (global-set-key (kbd "C-c C-p") 'treemacs-projectile)
 (global-set-key (kbd "C-c C-P") 'treemacs) ;; toggle
 (global-set-key (kbd "C-x C-g") 'google-this-mode-submap)

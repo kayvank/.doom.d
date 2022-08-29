@@ -6,4 +6,4 @@
       org-journal-file-format "%Y-%m-%d.org"
 )
 
-(setq org-roam-directory "~/.shared/org/roam")
+(setq org-roam-directory "~/.shared/shared/emacs/org/roam")
