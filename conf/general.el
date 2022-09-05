@@ -14,7 +14,9 @@
 
 (setq
  browse-url-generic-program "brave"
- browse-url-browser-function #'browse-url-generic)
+ browse-url-browser-function #'browse-url-generi
+ x-pointer-shape x-pointer-top-left-arrow)
+(set-mouse-color "grey")
 
 ;; treemacs
 
@@ -31,7 +33,9 @@
 (setq confirm-kill-emacs nil)
 (global-set-key (kbd "C-c C-p") 'treemacs-projectile)
 (global-set-key (kbd "C-c C-P") 'treemacs) ;; toggle
-(global-set-key (kbd "C-x C-g") 'google-this-mode-submap)
+(global-set-key (kbd "C-c C-g w") 'google-this-word)
+(global-set-key (kbd "C-c C-g l") 'google-this-line)
+(global-set-key (kbd "C-c C-g r") 'google-this-region)
 
 (global-unset-key (kbd "M-d"))
 (global-set-key (kbd "M-d") 'evil-multiedit-match-and-next)
@@ -41,4 +45,4 @@
 (global-set-key (kbd "M-a") 'evil-multiedit-match-all)
 (global-unset-key (kbd "M-A"))
 (global-set-key (kbd "M-A") 'evil-multiedit-abort)
-(global-whitespace-mode +1)
+;; (global-whitespace-mode +1)

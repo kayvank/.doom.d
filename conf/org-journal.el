@@ -7,3 +7,8 @@
 )
 
 (setq org-roam-directory "~/.shared/shared/emacs/org/roam")
+
+(global-set-key (kbd "C-<f1>") (lambda()
+			       (interactive)
+			       (show-all)
+			       (artist-mode)))
