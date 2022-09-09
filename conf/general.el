@@ -32,7 +32,7 @@
  )
 (setq confirm-kill-emacs nil)
 (global-set-key (kbd "C-c C-p") 'treemacs-projectile)
-(global-set-key (kbd "C-c C-P") 'treemacs) ;; toggle
+(global-set-key (kbd "C-c C-t") 'treemacs) ;; toggle
 (global-set-key (kbd "C-c C-g w") 'google-this-word)
 (global-set-key (kbd "C-c C-g l") 'google-this-line)
 (global-set-key (kbd "C-c C-g r") 'google-this-region)
@@ -46,3 +46,5 @@
 (global-unset-key (kbd "M-A"))
 (global-set-key (kbd "M-A") 'evil-multiedit-abort)
 ;; (global-whitespace-mode +1)
+(setq browse-url-generic-program "brave"
+     browse-url-browser-function 'browse-url-generic)
