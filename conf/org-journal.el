@@ -6,9 +6,14 @@
       org-journal-file-format "%Y-%m-%d.org"
 )
 
-(setq org-roam-directory "~/.shared/shared/emacs/org/roam")
 
 (global-set-key (kbd "C-<f1>") (lambda()
 			       (interactive)
 			       (show-all)
 			       (artist-mode)))
+(use-package! org-roam
+  :config(
+          setq
+                org-roam-directory "~/.shared/shared/emacs/org/roam-notes"
+
+          ))
