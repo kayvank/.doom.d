@@ -59,5 +59,6 @@
 (load! "conf/haskell.el")
 (load! "conf/purescript.el")
 (load! "conf/org-journal.el")
-(load! "conf/helm.el")
+;; (load! "conf/helm.el")
+;; (load! "conf/ivy.el")
 (load! "conf/daml.el")

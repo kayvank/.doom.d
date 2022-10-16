@@ -36,6 +36,7 @@
          (haskell-mode .  (lambda () (eldoc-mode -1)))
        )
   )
+(global-set-key (kbd "C-c w") 'haskell-hoogle-lookup-from-website)
 ;; (global-set-key (kbd "C-c w") 'haskell-hoogle-lookup-from-website)
 ;; (global-set-key (kbd "C-c h") 'haskell-hoogle-lookup-from-local)
 (add-to-list 'projectile-globally-ignored-directories "dist-newstyle")
@@ -66,3 +67,5 @@
         ([f8] . haskell-navigate-imports)
         )
   )
+
+(add-hook 'haskell-cabal-mode (lambda () (local-set-key [f2] 'cabal-fmt)))

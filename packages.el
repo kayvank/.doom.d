@@ -89,8 +89,8 @@
 (package! w3m)
 (package! yasnippet)
 (package! yasnippet-snippets)
-(package! helm-icons)
-(package! helm-swoop)
+;; (package! helm-icons)
+;; (package! helm-swoop)
 (package! company-ghc)
 (package! company-ghci)
 
