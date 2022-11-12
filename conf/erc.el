@@ -2,6 +2,7 @@
       '((:source "~/.authinfo.gpg"))
       erc-prompt-for-password nil erc-prompt-for-nickserv-password nil)
 (use-package! erc
+  :defer t
   :config (setq erc-server "irc.libera.chat" erc-services-mode 1 erc-autojoin-channels-alist '(("libera.chat"
                                                                                                 ;; "#xmonad"
                                                                                                 ;; "#purescript"
@@ -38,35 +39,6 @@
   (use-package! erc-spelling
     :config (erc-spelling-mode 0))
   (use-package! erc-hl-nicks)
-  (use-package! erc-colorize))
+  (use-package! erc-colorize)
 
-;; Interpret mIRC-style color commands in IRC chats
-;;
-;;
-;;
-;;
-;;
-;;
-;;
-;;
-;;
-;;
-;;
-;; (setq auth-sources '( "~/.authinfo.gpg" ))
-
-;; (use-package! erc
-;;   :custom
-;;   :config
-;;   (setq
-;;    auth-sources '((:source "~/.authinfo.gpg")))
-;;     (require 'erc-services)
-;;   (use-package! erc-colorize)
-;;    erc-colorize-mode 1
-;;    erc-log-insert-log-on-open t
-;;    erc-enable-logging t
-;;    erc-log-channels-directory "~/.erc/logs/"
-;;    erc-save-buffer-on-part t
-
-;;   (add-to-list 'erc-modules 'notifications)
-;;   (add-to-list 'erc-modules 'spelling)
-;;   )
+  )

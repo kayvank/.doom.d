@@ -1,12 +1,14 @@
 ;; * Elfeed-org
 (use-package! elfeed-org
-  :commands (elfeed-org)
+  :defer t
+  :after org
+  ;; :commands (elfeed-org)
   :config
+        (use-package! org)
   (setq
    rmh-elfeed-org-files '("~/.shared/shared/emacs/elfeed/elfeed.org")
    elfeed-db-directory "~/.shared/shared/emacs/elfeed/db/"
    ))
-
-(use-package! org-ref-elfeed
-  :when (featurep! :tools reference)
-  :commands (org-ref-elfeed-add))
+(use-package!  elfeed-goodies
+  :defer t)
+(elfeed-goodies/setup)

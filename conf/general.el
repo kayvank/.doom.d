@@ -48,9 +48,3 @@
 ;; (global-whitespace-mode +1)
 (setq browse-url-generic-program "brave"
      browse-url-browser-function 'browse-url-generic)
-
-;; (global-set-key (kbd "C-x b") 'helm-buffers-list)
-;; (global-set-key (kbd "C-x r b") 'helm-bookmarks)
-;; (global-set-key (kbd "C-x m") 'helm-M-x)
-;; (global-set-key (kbd "M-y") 'helm-show-kill-ring)
-;; (define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action)

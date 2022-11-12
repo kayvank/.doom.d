@@ -13,6 +13,7 @@
   )
 
 (use-package! lsp-mode
+  :defer t
   :commands (lsp lsp-ui-mode)
   :config
   (use-package! lsp-ui)
@@ -50,6 +51,7 @@
                      :remote? t
                      :server-id 'haskell-language-server-wrapper))
 (use-package! haskell-mode
+  :defer t
   :hook (
          (haskell-mode-hook . hindent-mode)
          (haskell-cabbal . hindent-mode)

@@ -1,6 +1,7 @@
 ;;; conf/daml.el -*- lexical-binding: t; -*-
 
-(use-package daml-mode
+(use-package! daml-mode
+  :defer t
   :load-path "~/.emacs.d/lisp/daml-mode/"
   :mode "\\.daml\'"
   :bind (:map daml-mode-map
