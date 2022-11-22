@@ -74,6 +74,7 @@
 (package! lsp-mode)
 (package! lsp-haskell)
 (package! lsp-treemacs)
+(package! lsp-ivy)
 (package! powerline)
 (package! popwin)
 (package! org-bullets)
@@ -93,7 +94,10 @@
 ;; (package! helm-swoop)
 (package! company-ghc)
 (package! company-ghci)
-
+(package! multiple-cursors)
+(package! pdf-tools)
+(package! org-pdftools)
+(package! org-contrib)
 
 ;
 ;; (package! flymake-hlint)

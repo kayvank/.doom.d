@@ -48,3 +48,11 @@
 ;; (global-whitespace-mode +1)
 (setq browse-url-generic-program "brave"
      browse-url-browser-function 'browse-url-generic)
+(global-set-key (kbd "C-c m c") 'mc/edit-lines)
+
+(use-package! org-contrib)
+(use-package! pdf-tools
+  :defer t
+  :config
+  (use-package! org-pdftools)
+  )

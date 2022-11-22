@@ -18,6 +18,7 @@
   :config
   (use-package! lsp-ui)
   (use-package! lsp-haskell)
+  (use-package! lsp-ivy)
   (use-package! ormolu)
   (setq
    lsp-ui-doc-enable t
