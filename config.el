@@ -61,3 +61,4 @@
 (load! "conf/org-journal.el")
 (load! "conf/diary.el")
 (load! "conf/daml.el")
+(load! "conf/treemacs.el")

@@ -88,6 +88,7 @@
 (package! solaire-mode)
 (package! treemacs-magit)
 (package! treemacs-icons-dired)
+(package! treemacs-all-the-icons)
 (package! w3m)
 (package! yasnippet)
 (package! yasnippet-snippets)
@@ -104,7 +105,6 @@
 (package! websocket)
 (package! rainbow-delimiters)
 
-;
 ;; (package! flymake-hlint)
 ;;(package! default-text-scale)
 ;; TODO not sure if this will conflict with company
