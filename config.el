@@ -81,6 +81,7 @@
 (load! "conf/general.el")
 (load! "conf/org.el")
 (load! "conf/projectile.el")
+(load! "conf/sql.el")
 ;; (load! "conf/ivy.el")
 (load! "conf/treemacs.el")
 (load! "conf/haskell.el")
