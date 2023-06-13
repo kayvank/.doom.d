@@ -62,21 +62,26 @@
 (package! treemacs-all-the-icons)
 (package! lsp-treemacs)
 
-;; (package! all-the-icons)
-;; (package! all-the-icons-ibuffer)
-;; (package! all-the-icons-ivy)
-;; (package! lsp-ivy)
+(package! all-the-icons)
+(package! all-the-icons-ibuffer)
+(package! all-the-icons-ivy)
+(package! lsp-ivy)
 
-(package! helm-icons)
-(package! helm-lsp)
-(package! wgrep-helm)
-(package! helm-swoop)
-(package! helm-themes)
-(package! helm-unicode)
-(package! helm-hoogle)
-(package! helm-projectile)
+(package! lsp-ui)
+
+;; (package! helm-icons)
+;; (package! helm-lsp)
+;; (package! wgrep-helm)
+;; (package! helm-swoop)
+;; (package! helm-themes)
+;; (package! helm-unicode)
+;; (package! helm-hoogle)
+;; (package! helm-projectile)
 
 (package! google-this)
+
+(package! ormolu)
+(package! flycheck-haskell)
 
 (package! org-roam)
 (package! org-roam-ui)

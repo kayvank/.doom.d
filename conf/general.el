@@ -29,3 +29,8 @@
 ;; Swap line numbers using C-<f5>, you can change this of course
 (autoload 'linum-mode "linum" "toggle line numbers on/off" t)
 (global-set-key (kbd "C-<f5>") 'linum-mode)
+(global-set-key (kbd "<f5>") 'revert-buffer-no-confirm)
+
+  (defun revert-buffer-no-confirm ()
+    "Revert buffer without confirmation."
+    (interactive) (revert-buffer t t))

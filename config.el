@@ -82,10 +82,11 @@
 (load! "conf/org.el")
 (load! "conf/projectile.el")
 (load! "conf/sql.el")
-;; (load! "conf/ivy.el")
+(load! "conf/ivy.el")
 (load! "conf/treemacs.el")
 (load! "conf/haskell.el")
 (load! "conf/elfeed.el")
 (load! "conf/erc.el")
 
-(load! "conf/helm.el")
+(load! "conf/purescript.el")
+;; (load! "conf/helm.el")
