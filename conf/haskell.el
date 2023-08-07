@@ -17,32 +17,30 @@
   (add-to-list 'load-path  "~/.doom.d/conf/lisp/hlint/")
   (require 'hs-lint)
 
-(defun cabal-fmt ()
-  "format cabal source code using cabal-fmt"
-  (interactive)
-  (setq auto-reverer-mode t)
-  (shell-command
-   "git ls-files  '*.cabal' | xargs cabal-fmt --inplace"
-    nil ;; output buffer
-    "*cabal-fmt-error-buffer*" ;; error buffer
-   ))
-
+  (defun cabal-fmt ()
+        "format cabal source code using cabal-fmt"
+        (interactive)
+        (setq auto-reverer-mode t)
+        (shell-command
+        "git ls-files  '*.cabal' | xargs cabal-fmt --inplace"
+        nil ;; output buffer
+        "*cabal-fmt-error-buffer*" ;; error buffer
+        ))
   (defun cabal-fmt-hook ()
-    (local-set-key "\C-c" 'cabal-fmt))
+        (local-set-key "\C-c c" 'cabal-fmt))
 
-(defun fourmolu ()
-    "Format haskell source code using `fourmolu'"
-  (interactive)
-    (setq auto-reverer-mode t)
-    (shell-command
-     ;; "fix-fourmolu" ;; available thru
-     "git ls-files -z '*.hs' | xargs -0 fourmolu --mode inplace -q"
-     nil ;; output buffer
-     "*fourmolu-error-buffer*" ;; error buffer
-   ))
-
+  (defun fourmolu ()
+        "Format haskell source code using `fourmolu'"
+        (interactive)
+        (setq auto-reverer-mode t)
+        (shell-command
+        ;; "fix-fourmolu" ;; available thru
+        "git ls-files -z '*.hs' | xargs -0 fourmolu --mode inplace -q"
+        nil ;; output buffer
+        "*fourmolu-error-buffer*" ;; error buffer
+        ))
   (defun fourmolu-hook ()
-    (local-set-key "\C-f" 'fourmolu) )
+    (local-set-key "\C-c f" 'fourmolu) )
 
   (defun my-haskell-mode-hook ()
     (local-set-key "\C-cl" 'hs-lint))
@@ -65,7 +63,9 @@
   :bind(
         ("C-c w". haskell-hoogle-lookup-from-website)
         ("C-c h" . haskell-hoogle-lookup-from-local)
-        ;; ("C-c C-f" . lsp-format-buffer ) ;; this does wierd formatting with lambda functions in inline comments
+        ("C-c f" . fourmolu ) ;; this does wierd formatting with lambda functions in inline comments
+        ("C-c c" . cabal-fmt) ;; this does wierd formatting with lambda functions in inline comments
+        ("C-c C-f" . lsp-format-buffer ) ;; this does wierd formatting with lambda functions in inline comments
         ("C-c l" . hs-lint)
         ("C-c r" . revert-buffer-no-confirm)
         ([f8] . haskell-navigate-imports)
@@ -77,7 +77,7 @@
   (setq
    lsp-completion-enable t
    lsp-completion-no-cache t
-   lsp-haskell-formatting-provider "fourmolu"
+   lsp-haskell-formatting-provider "stylish-haskell" ;; "fourmolu"
    lsp-haskell-plugin-hlint-config-flags t)
   (use-package! lsp-ui
     :config

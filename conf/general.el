@@ -1,5 +1,8 @@
 ;;; conf/general.el -*- lexical-binding: t; -*-
 
+(after! straight
+  (add-to-list 'straight-recipes-gnu-elpa-ignored-packages 'seq))
+
 (defun split-3-windows-horizontally-evenly ()
   (interactive)
   (command-execute 'split-window-horizontally)

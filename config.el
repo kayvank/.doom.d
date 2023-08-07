@@ -87,6 +87,5 @@
 (load! "conf/haskell.el")
 (load! "conf/elfeed.el")
 (load! "conf/erc.el")
-
 (load! "conf/purescript.el")
 ;; (load! "conf/helm.el")
