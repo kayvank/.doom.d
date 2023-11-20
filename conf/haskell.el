@@ -1,90 +1,113 @@
-(with-eval-after-load 'company
-  (add-to-list 'company-backends 'company-ghci))
-
-
-;; (global-flycheck-mode)
-
-
-(global-set-key (kbd "C-c w") 'haskell-hoogle-lookup-from-website)
-(global-set-key (kbd "C-c h") 'haskell-hoogle-lookup-from-local)
 (add-to-list 'projectile-globally-ignored-directories "dist-newstyle")
+(add-to-list 'projectile-globally-ignored-directories "dist-newstyle-repl")
+(add-to-list 'projectile-globally-ignored-directories ".direnv")
+(add-to-list 'projectile-globally-ignored-directories "result")
+(add-to-list 'projectile-globally-ignored-directories "results")
+(add-to-list 'projectile-globally-ignored-directories "results")
 
-(use-package lsp-haskell
-  :defer t
-  :init
-  (add-hook 'haskell-mode-hook
-            (lambda ()
-              (lsp)
-              (setq evil-shift-width 2)))
-  (add-hook 'haskell-literate-mode-hook #'lsp)
-  :config
-  (setq
-     lsp-haskell-formatting-provider "stylish-haskell"
-   ))
 
-(use-package lsp-mode
-  :hook (prog-mode . lsp-mode)
-  :init
-  ;; (with-eval-after-load 'lsp-mode (evil-leader/set-key "l" lsp-command-map))
-  :config
-    (add-to-list 'lsp-file-watch-ignored-directories '"[/\\\\]\\dist-newstyle-repl\\'")
-    (add-to-list 'lsp-file-watch-ignored-directories '"[/\\\\]\\plutus-playground-client/output\\'")
-    (add-to-list 'lsp-file-watch-ignored-directories '"[/\\\\]\\generated\\'")
-    (add-to-list 'lsp-file-watch-ignored-directories '"[/\\\\]\\.spago\\'")
-    (add-to-list 'lsp-file-watch-ignored-directories '"[/\\\\]\\result\\'")
-    (add-to-list 'lsp-file-watch-ignored-files '"[/\\\\]\\result\\'")
-  ;; This is to make `lsp-mode' work with `direnv' and pick up the correct
-  ;; version of GHC.
-  ;; (advice-add 'lsp :before #'direnv-update-environment)
-  (setq lsp-modeline-code-actions-enable nil))
+;; (use-package! ormolu
+;;   :after haskell-mode
+;;   :bind
+;; ("C-c r" . ormolu-format-buffer))
 
-(use-package! lsp-ui
-  :hook (prog-mode . lsp-ui-mode)
-  :config
-  ;; (evil-leader/set-key "x m" #'lsp-ui-imenu)
-  (setq lsp-ui-doc-position 'bottom))
-
-(use-package! lsp-ivy)
-
-(use-package! hindent
-  :config
-  (setq
-   haskell-indent-offset 2
-   haskell-indent-spaces 2))
 
 (use-package! haskell-mode
-  :defer t
+  :init
+  (add-to-list 'load-path  "~/.doom.d/conf/lisp/hlint/")
+  (require 'hs-lint)
+
+(defun cabal-fmt ()
+  "format cabal source code using cabal-fmt"
+  (interactive)
+  (setq auto-reverer-mode t)
+  (shell-command
+   "git ls-files  '*.cabal' | xargs cabal-fmt --inplace"
+    nil ;; output buffer
+    "*cabal-fmt-error-buffer*" ;; error buffer
+   ))
+
+  (defun cabal-fmt-hook ()
+    (local-set-key "\C-c" 'cabal-fmt))
+
+(defun fourmolu ()
+    "Format haskell source code using `fourmolu'"
+  (interactive)
+    (setq auto-reverer-mode t)
+    (shell-command
+     ;; "fix-fourmolu" ;; available thru
+     "git ls-files -z '*.hs' | xargs -0 fourmolu --mode inplace -q"
+     nil ;; output buffer
+     "*fourmolu-error-buffer*" ;; error buffer
+   ))
+
+  (defun fourmolu-hook ()
+    (local-set-key "\C-f" 'fourmolu) )
+
+  (defun my-haskell-mode-hook ()
+    (local-set-key "\C-cl" 'hs-lint))
   :config
+  ;; (add-hook 'before-save-hook #'fourmolu-haskell)
   (setq
-   haskell-hoogle-port-number 8666)
+   haskell-hoogle-port-number 8666
+   haskell-indent-offset 2
+   haskell-indent-spaces 2)
   :hook (
-         (haskell-literate-mode . lsp)
-         (haskell-mode-hook . hindent-mode)
-         (haskell-cabbal . hindent-mode)
+         (haskell-mode-hook . lsp)
+         (haskell-mode-hook . flyspel-prog-mode)
          (haskell-mode-hook . haskell-setup)
-         (haskell-mode-hook . company-mode)
+         ;; (haskell-mode-hook . company-mode)
+         (haskell-mode-hook . my-haskell-mode-hook)
+         (haskell-mode-hook . fourmolu-hook)
+         (before-save-hook  . fourmolu)
+         (haskell-cabal-mode . cabal-fmt-hook)
          )
   :bind(
         ("C-c w". haskell-hoogle-lookup-from-website)
         ("C-c h" . haskell-hoogle-lookup-from-local)
-        ("C-c d"  . hindent-reformat-decl)
-        ("C-c r"  . hindent-reformat-refron)
-        ("C-c b" . hindent-reformat-buffer)
-        ("C-c C-f" . haskell-mode-stylish-buffer)
-        ("C-c C-o" . ormolu-format-buffer)
-        ([f8] . haskell-navigate-imports))
+        ;; ("C-c C-f" . lsp-format-buffer ) ;; this does wierd formatting with lambda functions in inline comments
+        ("C-c l" . hs-lint)
+        ("C-c r" . revert-buffer-no-confirm)
+        ([f8] . haskell-navigate-imports)
+        )
   )
-
-(use-package! flycheck
-  :hook (flycheck-mode-hook . flycheck-haskell-setup))
-
-(use-package! tramp
-  :defer t
+(use-package! lsp-haskell
+  :after haskell-mode
   :config
-  (add-to-list 'tramp-remote-path 'tramp-own-remote-path)
-  (lsp-register-client
-   (make-lsp-client :new-connection (lsp-tramp-connection "haskell-language-server-wrapper")
-                    :major-modes '(haskell-mode)
-                    :activation-fn (lsp-activate-on "haskell")
-                    :remote? t
-                    :server-id 'haskell-language-server-wrapper)))
+  (setq
+   lsp-completion-enable t
+   lsp-completion-no-cache t
+   lsp-haskell-formatting-provider "fourmolu"
+   lsp-haskell-plugin-hlint-config-flags t)
+  (use-package! lsp-ui
+    :config
+    (define-key lsp-ui-mode-map [remap xref-find-definitions] #'lsp-ui-peek-find-definitions)
+    (define-key lsp-ui-mode-map [remap xref-find-references] #'lsp-ui-peek-find-references)
+    (setq
+     lsp-ui-peek-enable t
+     lsp-ui-doc-enable t
+     lsp-ui-imenu-enable t
+
+     )
+    )
+)
+(use-package! lsp
+    :config
+    (add-to-list 'lsp-file-watch-ignored-directories '"[/\\\\]dist-newstyle-repl\\'")
+    (add-to-list 'lsp-file-watch-ignored-directories '"[/\\\\]plutus-playground-client/output\\'")
+    (add-to-list 'lsp-file-watch-ignored-directories '"[/\\\\]generated\\'")
+    (add-to-list 'lsp-file-watch-ignored-directories '"[/\\\\]\\.direnv\\'")
+    (add-to-list 'lsp-file-watch-ignored-directories '"[/\\\\]\\.spago\\'")
+    (add-to-list 'lsp-file-watch-ignored-directories '"[/\\\\]result\\'")
+    (add-to-list 'lsp-file-watch-ignored-directories '"[/\\\\]__std__\\'")
+    (add-to-list 'lsp-file-watch-ignored-files '"[/\\\\]result\\'")
+    (setq
+     gc-cons-threshold 100000000
+     read-process-output-max (* 1024 1024) ;; 1mb
+     lsp-idle-delay 0.500
+     lsp-log-io nil
+     flycheck-nix-linter-executable "nix-linter"
+     lsp-headerline-breadcrumb-enable t
+     lsp-ui-sideline-show-code-actions t
+     lsp-completion-provider :none)
+    )

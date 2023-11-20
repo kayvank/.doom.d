@@ -51,11 +51,8 @@
 (global-set-key (kbd "C-c m c") 'mc/edit-lines)
 
 (use-package! org-contrib)
-(use-package! pdf-tools
-  :defer t
-  :config
-  (use-package! org-pdftools)
-  )
+;; (use-package! pdf-tools :defer t)
+;; (use-package! org-pdftools)
 (add-hook 'after-init-hook #'global-flycheck-mode)
 
 (when (display-graphic-p)

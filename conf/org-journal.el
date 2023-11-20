@@ -7,8 +7,8 @@
   (use-package! org-roam
   :config
   (setq
-        org-roam-directory "~/.shared/shared/emacs/org/roam"
-        org-roam-db-location"~/.shared/shared/emacs/org/roam/org-roam.db"
+        org-roam-directory "~/.shared/emacs/org/roam"
+        org-roam-db-location"~/.shared/emacs/org/roam/org-roam.db"
         )
   )
   (use-package! org-journal
@@ -35,4 +35,4 @@
           org-roam-ui-update-on-save t
           org-roam-ui-open-on-start t))
 
-  (setq diary-file "~/.shared/shared/emacs/diary")
+  (setq diary-file "~/.shared/emacs/diary")

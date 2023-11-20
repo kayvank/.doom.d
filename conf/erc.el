@@ -4,11 +4,11 @@
 (use-package! erc
   :defer t
   :config (setq erc-server "irc.libera.chat" erc-services-mode 1 erc-autojoin-channels-alist '(("libera.chat"
-                                                                                                ;; "#xmonad"
-                                                                                                ;; "#purescript"
-                                                                                                ;; "#haskell"
-                                                                                                ;; "#nixos"
-                                                                                                "#emacs"))
+                                                                                                 "#xmonad"
+                                                                                                 "#purescript"
+                                                                                                 "#haskell"
+                                                                                                 "#nixos"
+                                                                                                ;; "#emacs"))
                 erc-prompt "->> " erc-server-coding-system '(utf-8 . utf-8) erc-fill-column 100 ;; ;; column with is 100
                 erc-interpret-mirc-color t
                 ;; Kill buffers for channels after /part
