@@ -6,8 +6,8 @@
   :config
         (use-package! org)
   (setq
-   rmh-elfeed-org-files '("~/.shared/emacs/elfeed/elfeed.org")
-   elfeed-db-directory "~/.shared/emacs/elfeed/db/"
+   rmh-elfeed-org-files '("~/dev/org/elfeed/elfeed.org")
+   elfeed-db-directory "~/dev/org/elfeed/db/"
    ))
 (use-package!  elfeed-goodies
   :defer t)

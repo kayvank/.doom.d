@@ -14,7 +14,7 @@
 
 (use-package! haskell-mode
   :init
-  (add-to-list 'load-path  "~/.doom.d/conf/lisp/hlint/")
+  (add-to-list 'load-path  "~/.config/doom/conf/lisp/hlint/")
   (require 'hs-lint)
 
 (defun cabal-fmt ()
@@ -54,7 +54,6 @@
    haskell-indent-spaces 2)
   :hook (
          (haskell-mode-hook . lsp)
-         (haskell-mode-hook . flyspel-prog-mode)
          (haskell-mode-hook . haskell-setup)
          ;; (haskell-mode-hook . company-mode)
          (haskell-mode-hook . my-haskell-mode-hook)
@@ -68,7 +67,6 @@
         ;; ("C-c C-f" . lsp-format-buffer ) ;; this does wierd formatting with lambda functions in inline comments
         ("C-c l" . hs-lint)
         ("C-c r" . revert-buffer-no-confirm)
-        ([f8] . haskell-navigate-imports)
         )
   )
 (use-package! lsp-haskell

@@ -29,7 +29,7 @@
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
-(setq org-directory "~/.shared/emacs/org/")
+(setq org-directory "~/dev/emacs/org/")
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
@@ -55,11 +55,12 @@
 
 (load! "conf/projectile.el")
 (load! "conf/general.el")
+(load! "conf/window.el")
 (load! "conf/elfeed.el")
 (load! "conf/erc.el")
 (load! "conf/haskell.el")
 (load! "conf/purescript.el")
 (load! "conf/org-journal.el")
 (load! "conf/diary.el")
-(load! "conf/daml.el")
 (load! "conf/treemacs.el")
+(load! "conf/citar.el")

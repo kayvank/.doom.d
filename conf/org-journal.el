@@ -2,37 +2,33 @@
 ;;;
 
 (use-package! org-capture
-  :defer t
   :init
   (use-package! org-roam
+
   :config
   (setq
-        org-roam-directory "~/.shared/emacs/org/roam"
-        org-roam-db-location"~/.shared/emacs/org/roam/org-roam.db"
+        org-roam-directory "~/dev/org/roam/notes"
+        org-roam-db-location"~/dev/org/roam/notes/org-roam.db"
+        org-roam-dailies-directory "~/dev/org/roam/journal"
+        org-persist-directory "~/dev/org/persist"
+        org-directory "~/dev/org"
         )
-  )
-  (use-package! org-journal
-  :config
-  (setq org-journal-date-prefix "#+TITLE: "
-      org-journal-time-prefix "* "
-      org-journal-date-format "%a, %Y-%m-%d"
-      org-journal-file-format "%Y-%m-%d.org"
-  )
-  )
-)
-(use-package! websocket
-    :after org-roam)
+  :init
+  (use-package! org-roam-ui
+    :init
+    (use-package! websocket)
 
-(use-package! org-roam-ui
-    :after org-roam ;; or :after org
-;;         normally we'd recommend hooking orui after org-roam, but since org-roam does not have
-;;         a hookable mode anymore, you're advised to pick something yourself
-;;         if you don't care about startup time, use
-;;  :hook (after-init . org-roam-ui-mode)
     :config
     (setq org-roam-ui-sync-theme t
           org-roam-ui-follow t
           org-roam-ui-update-on-save t
           org-roam-ui-open-on-start t))
+  )
+  :config (
+           org-roam-db-autosync-mode
+           )
 
-  (setq diary-file "~/.shared/emacs/diary")
+  :bind (
+         ("C-c n d" . org-roam-dailies-map)
+         )
+)
