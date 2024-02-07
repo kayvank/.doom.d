@@ -52,7 +52,7 @@
 
 (package! ace-jump-mode)
 (package! async)
-(package! counsel-tramp)
+(package! counsel-dash)
 (package! counsel-tramp)
 (package! dmenu)
 (package! dired-open)
@@ -60,6 +60,10 @@
 (package! doom-snippets :ignore t)
 (package! dumb-jump)
 (package! elfeed-org)
+(package! org-pomodoro)
+(package! thingatpt)
+(package! focus)
+(package! lsp-focus)
 (package! elfeed-goodies)
 (package! elisp-format)
 (package! evil-multiedit)
@@ -74,6 +78,8 @@
 (package! lsp-mode)
 ;; (package! lsp-treemacs)
 (package! lsp-ivy)
+(package! lsp-ui)
+(package! lsp-treemacs)
 (package! powerline)
 (package! popwin)
 (package! org-bullets)
@@ -121,7 +127,10 @@
 
 (package! nerd-icons)
 (package! adoc-mode)
-
+(package! zeal-at-point)
+(package! sql-indent)
+(package! aiken-mode
+  :recipe (:host github :repo "aiken-lang/aiken-mode"))
 ;; (package! flymake-hlint)
 ;;(package! default-text-scale)
 ;; TODO not sure if this will conflict with company
