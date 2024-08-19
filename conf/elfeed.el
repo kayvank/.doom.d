@@ -8,6 +8,7 @@
   (setq
    rmh-elfeed-org-files '("~/dev/emacs/org/elfeed/elfeed.org")
    elfeed-db-directory "~/dev/emacs/org/elfeed/db/"
+   elfeed-search-filter "@6-months-ago +unread"
    ))
 (use-package!  elfeed-goodies
   :defer t)

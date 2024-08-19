@@ -49,5 +49,9 @@
 ;; ...Or *all* packages (NOT RECOMMENDED; will likely break things)
 ;; (unpin! t)
 
+(package! org-roam-ui)
 (package! lsp-treemacs)
-(package! helm-lsp)
+(package! all-the-icons-completion)
+(package! marginalia)
+(package! org-tree-slide)
+(package! org-noter)

@@ -13,8 +13,8 @@
     :hook
     (aiken-mode . lsp)
     )
-  :hook
-  (aiken-mode . company-mode)
+  ;; :hook
+  ;; (aiken-mode . company-mode)
   :bind
   ("C-c C-b" . aiken-format-buffer)
   ("C-c C-r" . aiken-format-region))

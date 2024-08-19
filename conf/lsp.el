@@ -44,7 +44,8 @@
    gc-cons-threshold 100000000
    read-process-output-max (* 1024 1024) ;; 1mb
    lsp-idle-delay 0.500
-   lsp-log-io t
+
+   lsp-log-io t  ;; uncomment for debugging
    ;;     flycheck-nix-linter-executable "nix-linter"
    lsp-headerline-breadcrumb-enable t
    lsp-ui-sideline-show-code-actions t
@@ -55,16 +56,16 @@
   :bind
   ("C-c C-e" . eldoc-doc-buffer)
   )
-(push 'company-lsp company-backends)
+;; (push 'company-lsp company-backends)
 
-(use-package! company-box
-  :defer t
-  :config
-  (setq-hook! 'prog-mode-hook
-    company-box-frame-top-margin 20)
-  (setq-hook! 'text-mode-hook
-    company-box-frame-top-margin 75)
-  )
+;; (use-package! company-box
+;;   :defer t
+;;   :config
+;;   (setq-hook! 'prog-mode-hook
+;;     company-box-frame-top-margin 20)
+;;   (setq-hook! 'text-mode-hook
+;;     company-box-frame-top-margin 75)
+;;   )
 
 
 (use-package! lsp-treemacs
@@ -72,9 +73,3 @@
   (lsp-treemacs-sync-mode 1) 
   :commands 
   (lsp-treemacs-errors-list))
-
-(use-package! helm-lsp
-  :config
-  (define-key lsp-mode-map [remap xref-find-apropos] #'helm-lsp-workspace-symbol)
-:commands 
-(helm-lsp-workspace-symbol))

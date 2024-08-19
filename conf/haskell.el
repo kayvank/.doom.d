@@ -6,6 +6,7 @@
 (setq
  haskell-hoogle-port-number 8666
  lsp-haskell-formatting-provider "fourmolu"
+ corfu-mode t
  )
 
 
@@ -15,5 +16,6 @@
 :bind(:map haskell-mode-map
            ("C-c C-w". haskell-hoogle-lookup-from-website)
            ("C-c C-h" . haskell-hoogle-lookup-from-local)
+           ("C-c f" . lsp-format-buffer)
            )
 )

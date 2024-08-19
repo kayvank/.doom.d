@@ -35,6 +35,7 @@
 	erc-auto-set-away nil
 	erc-autoaway-message "%i seconds out..."
 	erc-away-nickname "kayvank"
+	erc-nick "kayvank"
 	erc-kill-queries-on-quit nil
 	erc-kill-server-buffer-on-quit t
 	erc-log-channels-directory "~/.erc_log"
@@ -43,7 +44,10 @@
 	erc-auto-query 'window-noselect
 	erc-server-coding-system '(utf-8 . utf-8)
 	erc-encoding-coding-alist '(("#emacs" . utf-8)
-				    ("&bitlbee" . utf-8)))
+				    ("&bitlbee" . utf-8))
+        erc-autojoin-channels-alist
+          '("irc.libera.chat" . ("#purescript" "#haskell" "#nixos" "#ghc" "#haskell-overflow" "rust-bitcoin" ))
+        )
 
   (add-hook 'erc-mode-hook
 	    #'(lambda ()
@@ -71,4 +75,4 @@
     (erc-ssl :server "irc.libera.chat"
 	     :port 6697
 	     :nick "kayvank"
-	     :full-name "kayvan")))
+	     :full-name "kayvank")))
