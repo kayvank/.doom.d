@@ -55,3 +55,4 @@
 (package! marginalia)
 (package! org-tree-slide)
 (package! org-noter)
+(package! protobuf-mode)
