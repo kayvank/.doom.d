@@ -29,6 +29,9 @@
    lsp-file-watch-ignored-directories (cons "[/\\\\]result\\'" lsp-file-watch-ignored-directories )
    lsp-file-watch-ignored-directories (cons "[/\\\\]__std__\\'" lsp-file-watch-ignored-directories )
    lsp-file-watch-ignored-files (cons "[/\\\\]result\\'" lsp-file-watch-ignored-directories )
+   ;; solidity stuff
+   lsp-file-watch-ignored-files (cons "[/\\\\]cache\\'" lsp-file-watch-ignored-directories )
+   lsp-file-watch-ignored-files (cons "[/\\\\]out\\'" lsp-file-watch-ignored-directories )
    )
   (setq
    gc-cons-threshold 100000000

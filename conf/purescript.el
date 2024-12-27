@@ -4,7 +4,7 @@
   :config
   (setq
    lsp-purescript-formatter "purs-tidy"
-   corfu-mode t
+   ;; corfu-mode t
    )
   :bind(:map purescript-mode-map
              ("C-c C-p" . purescript-pursuit)

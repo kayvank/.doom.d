@@ -56,3 +56,7 @@
 (package! org-tree-slide)
 (package! org-noter)
 (package! protobuf-mode)
+(package! save-history)
+(package! auto-complete)
+(package! flymake-cspell)
+(package! evil-multiedit)

@@ -6,13 +6,15 @@
 (setq
  haskell-hoogle-port-number 8666
  lsp-haskell-formatting-provider "fourmolu"
- corfu-mode t
+ ;; corfu-mode t
  )
 
 
 :hook (
        (haskell-mode-hook . lsp)
+       (haskell-mode-hook . flymake-cspell)
        (haskell-literate-mode . lsp))
+
 :bind(:map haskell-mode-map
            ("C-c C-w". haskell-hoogle-lookup-from-website)
            ("C-c C-h" . haskell-hoogle-lookup-from-local)

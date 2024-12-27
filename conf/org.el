@@ -8,9 +8,7 @@
 
 
 (use-package! org
-  :hook (
-         org-mode . (lambda () (corfu-mode 0 ))
-         )
+  ;; :hook (org-mode . (lambda () (corfu-mode 0 )))
   :config (setq
            corfu-mode 0
            org-agenda-files "~/dev/emacs/org/tasks/iohk.org"
@@ -19,8 +17,12 @@
 
     (use-package! org-roam
       :config (setq
-               org-roam-directory "~/dev/emacs/org/roam/notes"
-               org-roam-db-location "~/dev/emacs/org/roam/db/org-roam.db"
+               ;; org-roam-directory "~/dev/emacs/org/roam/archive/plutus-apps/notes"
+               ;; org-roam-db-location "~/dev/emacs/org/roam/archive/plutus-apps/notes/org-roam.db"
+
+               org-roam-directory "~/dev/emacs/org/roam/eigen-layer/notes"
+               org-roam-db-location "~/dev/emacs/org/roam/eigen-layer/notes/org-roam.db"
+
                org-roam-dailies-directory "~/dev/emacs/org/roam/journal"
                org-persist-directory "~/dev/emacs/org/persist"
                org-directory "~/dev/emacs/org"

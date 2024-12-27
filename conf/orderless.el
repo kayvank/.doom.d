@@ -2,17 +2,14 @@
 
 
 (use-package! orderless
-  :custom
-  (completion-styles '(orderless))
-  (completion-category-defaults nil)    ; I want to be in control!
-  (completion-category-overrides
-   '((file (styles basic-remote ; For `tramp' hostname completion with `vertico'
-                   orderless
-                   ))
-     ))
+  :config
+  (setq
+  completion-styles '(orderless basic)
+  completion-category-defaults nil    ; I want to be in control!
+completion-category-overrides '((file (styles basic partial-completion)))
 
-  (orderless-component-separator 'orderless-escapable-split-on-space)
-  (orderless-matching-styles
+  orderless-component-separator 'orderless-escapable-split-on-space
+  orderless-matching-styles
    '(orderless-literal
      orderless-prefixes
      orderless-initialism
@@ -22,12 +19,13 @@
      ;; orderless-strict-initialism
      ;; orderless-strict-full-initialism
      ;; orderless-without-literal          ; Recommended for dispatches instead
-     ))
-  (orderless-style-dispatchers
+     )
+  orderless-style-dispatchers
    '(prot-orderless-literal-dispatcher
      prot-orderless-strict-initialism-dispatcher
      prot-orderless-flex-dispatcher
-     ))
+     )
+   )
   :init
   (defun orderless--strict-*-initialism (component &optional anchored)
     "Match a COMPONENT as a strict initialism, optionally ANCHORED.

@@ -27,7 +27,6 @@
   :bind (
          "C-c r" . lsp-rust-analyzer-open-external-docs)
   :config
-  (setq
-   corfu-mode t)
+  ;; (setq corfu-mode t)
   )
   )
