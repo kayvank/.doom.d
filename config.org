@@ -1,0 +1,436 @@
+#+title: Config
+
+* Table of Contents :toc:
+- [[#doom-settings][Doom Settings]]
+  - [[#wayland-copypaste][Wayland copy/paste]]
+- [[#keybindings][Keybindings]]
+  - [[#comment-line][Comment Line]]
+- [[#markdown][Markdown]]
+  - [[#headers][Headers]]
+  - [[#toggle-markdown-view][Toggle Markdown View]]
+- [[#org][Org]]
+  - [[#basic-settings][Basic Settings]]
+  - [[#org-agenda][Org-agenda]]
+- [[#yas-snippet][yas-snippet]]
+- [[#projectile][Projectile]]
+- [[#treemacs][Treemacs]]
+- [[#elfeed-and-blogs-reader][Elfeed and Blogs reader]]
+- [[#bookmark-manager][Bookmark manager]]
+- [[#multi-edit][Multi edit]]
+- [[#sensible-defaults][Sensible Defaults]]
+- [[#languages][Languages]]
+  - [[#haskell][haskell]]
+  - [[#lsp][lsp]]
+  - [[#javascript][Javascript]]
+
+* Doom Settings
+#+begin_src emacs-lisp
+(setq doom-theme 'doom-ayu-dark)
+
+ (setq doom-font (font-spec :family "Fira Code" :size 16))
+;; (setq doom-font (font-spec :family "JetBrains Mono" :size 14))
+(show-paren-mode +1)
+#+end_src
+** Wayland copy/paste
+
+#+begin_src emacs-lisp
+;; this is for copy/paste when using emacs -nw
+(when (getenv "WAYLAND_DISPLAY")
+  (setq wl-copy-process nil)
+  (defun wl-copy (text)
+    (setq wl-copy-process (make-process :name "wl-copy"
+                                        :buffer nil
+                                        :command '("wl-copy" "-f" "-n")
+                                        :connection-type 'pipe
+                                        :noquery t))
+    (process-send-string wl-copy-process text)
+    (process-send-eof wl-copy-process))
+
+  (defun wl-paste ()
+    (if (and wl-copy-process (process-live-p wl-copy-process))
+        nil ; shoul return nil if we are the current paste owner)
+      (shell-command-to-string "wl-paste -n | tr -d \r")))
+  (setq
+   interprogram-cut-function 'wl-copy
+   interprogram-paste-function 'wl-paste))
+
+#+end_src
+
+#+begin_src emacs-lisp
+;; these settings are currently the default setting,and we could remove them
+(setq
+ select-enable-primary nil
+ select-enable-clipboard t
+ x-select-enable-primary nil
+ x-select-enable-clipboard t
+ )
+#+end_src
+
+#+RESULTS:
+: t
+
+* Keybindings
+
+** Comment Line
+#+begin_src emacs-lisp
+(map! :leader
+      :desc "Comment line" "-" #'comment-line)
+#+end_src
+
+
+* Markdown
+This sets the font size for each markdown header level.  Having variable font sizes in a markdown outline makes it visually appealing and more readable.
+
+
+** Headers
+#+begin_src emacs-lisp
+(custom-set-faces
+ '(markdown-header-face ((t (:inherit font-lock-function-name-face :weight bold :family "variable-pitch"))))
+ '(markdown-header-face-1 ((t (:inherit markdown-header-face :height 1.6))))
+ '(markdown-header-face-2 ((t (:inherit markdown-header-face :height 1.5))))
+ '(markdown-header-face-3 ((t (:inherit markdown-header-face :height 1.4))))
+ '(markdown-header-face-4 ((t (:inherit markdown-header-face :height 1.3))))
+ '(markdown-header-face-5 ((t (:inherit markdown-header-face :height 1.2))))
+ '(markdown-header-face-6 ((t (:inherit markdown-header-face :height 1.1)))))
+
+#+end_src
+
+** Toggle Markdown View
+A custom function to toggle between standard 'markdown-mode' and 'markdown-view-mode'.  Custom functions in Emacs should be named as "prefix/name-of-function" to make it clear that the function is custom and not a standard Emacs function.  In my case, I begin all my custom functions with 'dt'.
+
+#+begin_src emacs-lisp
+(defun dt/toggle-markdown-view-mode ()
+  "Toggle between `markdown-mode' and `markdown-view-mode'."
+  (interactive)
+  (if (eq major-mode 'markdown-view-mode)
+      (markdown-mode)
+    (markdown-view-mode)))
+
+#+end_src
+
+* Org
+k* Headers
+This sets the font size for each Org header level.  Having variable font sizes in an Org outline makes it visually appealing and more readable.
+#+begin_src emacs-lisp
+(custom-theme-set-faces!
+'doom-one
+'(org-level-8 :inherit outline-3 :height 1.0)
+'(org-level-7 :inherit outline-3 :height 1.0)
+'(org-level-6 :inherit outline-3 :height 1.1)
+'(org-level-5 :inherit outline-3 :height 1.2)
+'(org-level-4 :inherit outline-3 :height 1.3)
+'(org-level-3 :inherit outline-3 :height 1.4)
+'(org-level-2 :inherit outline-2 :height 1.5)
+'(org-level-1 :inherit outline-1 :height 1.6)
+'(org-document-title  :height 1.8 :bold t :underline nil))
+
+#+end_src
+
+** Basic Settings
+#+begin_src emacs-lisp
+
+(setq
+ org-directory "~/dev/emacs/org/"
+ org-modern-table-vertical 1
+ org-modern-table t
+ )
+(add-hook 'org-mode-hook #'hl-todo-mode)
+
+(use-package! org-roam
+  :config (setq
+           org-roam-db-location "~/dev/emacs/org/roam/iog/zk/db"
+           org-roam-directory "~/dev/emacs/org/roam/iog/zk"
+           org-roam-dailies-directory "~/dev/emacs/org/roam/journal"
+           org-roam-completion-everywhere t
+          )
+  )
+(use-package! org-roam-ui
+  :init (use-package! websocket)
+  :config (setq
+           org-roam-ui-sync-theme t
+           org-roam-ui-follow t
+           org-roam-ui-update-on-save t
+           org-roam-ui-open-on-start t
+           )
+  )
+#+end_src
+
+#+RESULTS:
+: t
+
+** Org-agenda
+
+#+begin_src emacs-lisp
+(after! org
+  (setq
+   org-agenda-files '("~/dev/emacs/org/agenda/agenda.org")))
+#+end_src
+*** Org-super-agenda
+
+#+begin_src emacs-lisp
+;; (use-package! org-super-agend
+;;               :ensure t
+;;               :after org
+;;               :init
+;;               ;; (setq org-super-agenda-groups '((:name "Today" :time-grid t :scheduled "today") (:name "Due Today" :deadline today) (:name "Important" :priority "A") (:name "Overdue" :deadline past) (:name "Due soon" :deadline future) (:name "Big Outcomes" :tag "bo")))
+;;               :config
+;;               (org-super-agenda-mode)
+;;               )
+#+end_src
+* yas-snippet
+templates
+#+begin_src emacs-lisp
+;; (after! yasnippet (add-to-list 'yas-snippet-dirs "~/dev/emacs/templates/snippets"))
+#+end_src
+* Projectile
+Projectile settings
+
+#+begin_src emacs-lisp
+
+(use-package! projectile
+  :config
+  (setq
+   projectile-globally-ignore-directories '(
+                                            ".direnv"
+                                            ".spago"
+                                            "./result"
+                                            ".cargo"
+                                            ".cabal"
+                                            "target"
+                                            "var"
+                                            "logs"
+                                            "tmp"
+                                            "dist-newstyle"
+                                            "node_modules"
+                                            "build"
+                                            "output"
+                                            "input"
+                                            "var"
+                                            ".vscode"
+
+                                            )
+   )
+  :bind (:map projectile-mode-map
+              ("C-c C-f" . projectile-find-file-dwim-other-window)))
+
+#+end_src
+
+* Treemacs
+treemacs and projectile integration
+
+#+begin_src emacs-lisp
+(use-package! treemacs
+  :config
+  (setq
+   treemacs-follow-mode t
+   treemacs-tag-follow-delay 2)
+  :bind (
+         ([f8] . treemacs-add-and-display-current-project-exclusively)
+         ("S-<f8>" . treemacs-select-window)
+         ("C-c t" . treemacs)
+         )
+  )
+#+end_src
+
+
+* Elfeed and Blogs reader
+Read blogs RSS, Atom
+
+#+begin_src emacs-lisp
+(use-package! elfeed-org
+  :config
+        (use-package! org)
+  (setq
+   rmh-elfeed-org-files '("~/dev/emacs/org/elfeed/elfeed.org")
+   elfeed-db-directory    "~/dev/emacs/org/elfeed/db/"
+   elfeed-search-filter "@6-months-ago +unread"
+   ))
+#+end_src
+
+* Bookmark manager
+WWW bookmark manager
+#+begin_src emacs-lisp
+(use-package! ebuku
+  :config
+  (setq
+   browse-url-generic-program "brave-browser"
+   browse-url-browser-function 'browse-url-generic)
+  )
+
+#+end_src
+
+* Multi edit
+multi edit
+#+begin_src emacs-lisp
+(use-package! evil-multiedit)
+(evil-multiedit-default-keybinds)
+#+end_src
+
+* Sensible Defaults
+#+begin_src emacs-lisp
+
+(global-set-key (kbd "C-x k") 'kill-current-buffer) ;; skip verification
+;; (global-whitespace-mode +1)
+
+(setq
+ ;; display-line-numbers-type t
+ display-line-numbers-type 'relative
+ ;; browse-url-browser-function 'eww-browse-url
+ ;; initial-buffer-choice 'eshell ;; Eshell is initial buffer
+ confirm-kill-emacs nil
+ auto-save-default nil
+ popup-mode nil
+ +popup-mode nil
+ )
+
+(editorconfig-mode 1)
+(global-set-key (kbd "C-x v") 'yank)
+
+#+end_src
+
+#+RESULTS:
+: eshell
+
+* Languages
+** haskell
+
+#+begin_src emacs-lisp
+(use-package! consult-hoogle
+  :config
+  (setq consult-hoogle-server "http://localhost:8666"))
+
+(use-package! haskell-mode
+  :config
+  (setq
+   haskell-hoogle-port-number 8666
+   browse-url-browser-function 'eww)
+  :bind
+  ("C-c C-w". haskell-hoogle-lookup-from-website)
+  ("C-c C-h" . haskell-hoogle-lookup-from-local)
+  ("C-c f" . lsp-format-buffer)
+  ("C-c s" . haskell-mode-stylish-buffer)
+
+  :init
+  (use-package! lsp-mode
+    :config
+    ( setq
+        lsp-log-io nil
+        lsp-enable-symbol-highlighting t
+        lsp-enable-on-type-formatting nil
+        lsp-headerline-breadcrumb-enable t
+        lsp-modeline-diagnostics-enable t
+        lsp-modeline-code-actions-enable t
+        lsp-idle-delay 1
+        lsp-enable-indentation t
+        lsp-enable-snippet nil
+        lsp-restart nil)
+    :init
+ (use-package! lsp-haskell
+    :config
+    (setq
+      lsp-haskell-server-path "haskell-language-server-wrapper"
+      lsp-haskell-formatting-provider "fourmolu"
+      lsp-haskell-plugin-ghcide-completions-config-snippets-on t
+      ;; lsp-haskell-plugin-ghcide-type-lenses-global-on t
+      lsp-haskell-plugin-ghcide-hover-actions-global-on t
+      ;; lsp-haskell-plugin-cabal-code-actions-on t
+      )
+  )
+ (use-package! lsp-ui
+    :config
+    ( setq
+      lsp-ui-peek-show-directory t
+      lsp-ui-imenu-enable t
+      lsp-ui-sideline-delay 2
+      lsp-ui-doc-delay 2
+      lsp-ui-mode t
+      ;; lsp-ui-doc-position 'bottom; or 'top, 'right, 'at-point
+      ;; lsp-ui-doc-position 'at-point
+      ;; lsp-ui-doc-show-with-cursor t
+      lsp-ui-doc-enable t
+      lsp-ui-sideline-show-hover t
+      lsp-ui-sideline-show-diagnostics t
+      lsp-ui-sideline-show-code-actions t
+      lsp-ui-sideline-update-mode 'point
+      ;; lsp-ui-doc-use-childframe t
+      lsp-ui-doc-include-signature t)
+    )
+
+
+  )
+    )
+
+#+end_src
+
+** lsp
+General language server settings
+
+#+begin_src emacs-lisp
+
+(use-package! lsp
+  :config
+  (setq
+   gc-cons-threshold 100000000 ;; 100MB
+   read-process-output-max (* 1024 1024 5) ;; 5mb
+   lsp-log-io nil  ;; uncomment for debugging
+   lsp-headerline-breadcrumb-enable t
+   lsp-auto-guess-root t
+   ;; lsp-modeline-diagnostics-scope :workspace
+   ;; flymake-mode t
+;; monorepo
+   lsp-auto-guess-root nil
+   debug-on-error nil
+   )
+  :bind
+  ("C-c C-e" . eldoc-doc-buffer)
+
+
+:init
+  (add-to-list 'lsp-file-watch-ignored-directories "[/\\\\]\\.cabal\\'")
+  (add-to-list 'lsp-file-watch-ignored-directories "[/\\\\]\\.direnv\\'")
+  (add-to-list 'lsp-file-watch-ignored-directories "[/\\\\]\\var\\'")
+  (add-to-list 'lsp-file-watch-ignored-directories "[/\\\\]\\output\\'")
+  (add-to-list 'lsp-file-watch-ignored-directories "[/\\\\]\\input\\'")
+  (add-to-list 'lsp-file-watch-ignored-directories "[/\\\\]\\.deps-src\\'")
+(use-package! lsp-treemacs
+  :config
+  (lsp-treemacs-sync-mode 1)
+  :commands
+  (lsp-treemacs-errors-list))
+
+  )
+
+#+end_src
+** Javascript
+*** deno
+
+#+begin_src emacs-lisp
+(use-package! lsp-mode
+  :config
+  (lsp-register-client
+   (make-lsp-client
+    :new-connection (lsp-stdio-connection '("deno" "lsp"))
+    :major-modes '(typescript-mode typescript-tsx-mode js-mode js-ts-mode)
+    :server-id 'deno-ls
+    :initialized-fn (lambda (workspace)
+                      (with-lsp-workspace workspace
+                        (lsp--set-configuration
+                         `(:enable t
+                           :lint t
+                           :unstable t
+                           :suggest :all)))))
+   ))
+
+#+end_src
+
+*** latex
+
+#+begin_src emacs-lisp
+(setq +latex-viewers '(pdf-tools))
+(setq lsp-tex-server 'digestif)
+
+(add-hook 'latex-mode-hook #'xenops-mode)
+(add-hook 'LaTeX-mode-hook #'xenops-mode)
+
+;; (add-hook LaTeX-mode-hook #'xenops-mode)
+#+end_src
